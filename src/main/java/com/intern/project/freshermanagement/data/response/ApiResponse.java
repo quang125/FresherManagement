@@ -1,4 +1,4 @@
-package com.intern.project.freshermanagement.model.response;
+package com.intern.project.freshermanagement.data.response;
 
 import lombok.Getter;
 import lombok.Setter;

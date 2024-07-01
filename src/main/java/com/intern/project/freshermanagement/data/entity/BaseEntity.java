@@ -1,4 +1,4 @@
-package com.intern.project.freshermanagement.model.entity;
+package com.intern.project.freshermanagement.data.entity;
 
 import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedBy;

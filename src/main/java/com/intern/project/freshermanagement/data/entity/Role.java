@@ -1,9 +1,6 @@
-package com.intern.project.freshermanagement.model.entity;
+package com.intern.project.freshermanagement.data.entity;
 
 import jakarta.persistence.*;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 public class Role {

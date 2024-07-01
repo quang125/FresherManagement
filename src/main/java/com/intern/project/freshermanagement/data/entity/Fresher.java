@@ -1,9 +1,7 @@
-package com.intern.project.freshermanagement.model.entity;
+package com.intern.project.freshermanagement.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Entity
 @Data

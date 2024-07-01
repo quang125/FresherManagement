@@ -1,7 +1,7 @@
-package com.user.acquisition.common.constants;
+package com.intern.project.freshermanagement.common.constants;
 
 /**
- * @author TruongNH
+ * @author QuangNN
  */
 public class ApplicationConstant {
     public static final String IMPORTING_DATA = "Importing data";

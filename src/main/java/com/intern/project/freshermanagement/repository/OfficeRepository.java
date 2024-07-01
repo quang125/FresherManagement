@@ -1,2 +1,9 @@
-package com.intern.project.freshermanagement.repository;public interface OfficeRepository {
+package com.intern.project.freshermanagement.repository;
+
+import com.intern.project.freshermanagement.data.entity.Office;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface OfficeRepository extends JpaRepository<Office,Long> {
 }

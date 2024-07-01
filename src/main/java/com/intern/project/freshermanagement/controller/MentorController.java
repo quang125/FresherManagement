@@ -1,2 +1,4 @@
-package com.intern.project.freshermanagement.controller;public class MentorController {
+package com.intern.project.freshermanagement.controller;
+
+public class MentorController {
 }

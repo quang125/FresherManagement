@@ -1,10 +1,10 @@
-package com.user.acquisition.common.constants;
+package com.intern.project.freshermanagement.common.constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author TruongNH
+ * @author QuangNN
  */
 public class CountryConstant {
 

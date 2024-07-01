@@ -1,2 +1,4 @@
-package com.intern.project.freshermanagement.common.config;public class SecurityConfig {
+package com.intern.project.freshermanagement.common.config;
+
+public class SecurityConfig {
 }

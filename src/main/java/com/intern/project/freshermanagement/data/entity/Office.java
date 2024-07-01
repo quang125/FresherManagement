@@ -1,12 +1,7 @@
-package com.intern.project.freshermanagement.model.entity;
+package com.intern.project.freshermanagement.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Data

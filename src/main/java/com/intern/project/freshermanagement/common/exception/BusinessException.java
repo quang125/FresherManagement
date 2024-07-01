@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusinessException extends RuntimeException {
+public abstract class BusinessException extends RuntimeException {
 
     protected HttpStatus status;
     protected String message;

@@ -1,4 +1,4 @@
-package com.intern.project.freshermanagement.model.request;
+package com.intern.project.freshermanagement.data.request;
 
 public class UpdateFresherDTO {
 }

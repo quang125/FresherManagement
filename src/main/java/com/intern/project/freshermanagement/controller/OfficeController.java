@@ -1,2 +1,4 @@
-package com.intern.project.freshermanagement.controller;public class OfficeController {
+package com.intern.project.freshermanagement.controller;
+
+public class OfficeController {
 }
