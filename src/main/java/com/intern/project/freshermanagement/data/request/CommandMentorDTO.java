@@ -1,25 +1,15 @@
-package com.intern.project.freshermanagement.data.entity;
+package com.intern.project.freshermanagement.data.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class User extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
+public class CommandMentorDTO {
     private String email;
 
     @JsonIgnore
@@ -27,14 +17,8 @@ public class User extends BaseEntity{
 
     private String username;
     private String phoneNumber;
-
-    private boolean status;
     private String fullName;
     private String profileImageUrl;
     private LocalDate dateOfBirth;
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
-    private Role role;
-
+    private Long programmingLanguageId;
 }

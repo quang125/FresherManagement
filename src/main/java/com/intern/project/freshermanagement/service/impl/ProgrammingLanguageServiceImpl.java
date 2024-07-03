@@ -2,6 +2,7 @@ package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.ProgrammingLanguageNotFoundException;
 import com.intern.project.freshermanagement.data.entity.ProgrammingLanguage;
+import com.intern.project.freshermanagement.data.request.CommandLanguageDTO;
 import com.intern.project.freshermanagement.repository.ProgrammingLanguageRepository;
 import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,17 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
-    public ProgrammingLanguage create(ProgrammingLanguage programmingLanguage) {
-        programmingLanguage.setStatus(true);
-        return programmingLanguageRepository.save(programmingLanguage);
+    public ProgrammingLanguage create(CommandLanguageDTO programmingLanguage) {
+        ProgrammingLanguage language=new ProgrammingLanguage();
+        language.setLanguageName(programmingLanguage.getLanguageName());
+        language.setLanguageDescription(programmingLanguage.getLanguageDescription());
+        language.setStatus(true);
+        return programmingLanguageRepository.save(language);
+    }
+
+    @Override
+    public List<ProgrammingLanguage> findByName(String languageName) {
+        return programmingLanguageRepository.findByLanguageName(languageName);
     }
 
     @Override
@@ -45,7 +54,10 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
-    public ProgrammingLanguage update(ProgrammingLanguage programmingLanguage) {
-        return programmingLanguageRepository.save(programmingLanguage);
+    public ProgrammingLanguage update(CommandLanguageDTO programmingLanguage) {
+        ProgrammingLanguage language=new ProgrammingLanguage();
+        language.setLanguageName(programmingLanguage.getLanguageName());
+        language.setLanguageDescription(programmingLanguage.getLanguageDescription());
+        return programmingLanguageRepository.save(language);
     }
 }

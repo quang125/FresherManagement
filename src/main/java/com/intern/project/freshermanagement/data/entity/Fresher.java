@@ -14,7 +14,6 @@ public class Fresher extends BaseEntity{
     private String fresherClass;
     private String studentCode;
 
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "fresher_score_id")
     private FresherScore fresherScore;
@@ -25,7 +24,7 @@ public class Fresher extends BaseEntity{
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "internship_registration_content_id")
-    private InternshipProject internshipRegistrationContent;
+    private InternshipProject internshipProject;
 
     @ManyToOne
     @JoinColumn(name = "mentor_id")

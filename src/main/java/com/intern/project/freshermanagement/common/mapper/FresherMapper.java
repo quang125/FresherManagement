@@ -5,7 +5,10 @@ import com.intern.project.freshermanagement.data.entity.User;
 import com.intern.project.freshermanagement.data.request.CreateFresherDTO;
 import com.intern.project.freshermanagement.data.request.UpdateFresherDTO;
 import com.intern.project.freshermanagement.data.response.FresherDTO;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FresherMapper {
     public static FresherDTO toDTO(Fresher fresher){
         return new FresherDTO();

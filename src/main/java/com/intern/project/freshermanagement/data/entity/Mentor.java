@@ -1,10 +1,16 @@
 package com.intern.project.freshermanagement.data.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Mentor extends BaseEntity  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +21,9 @@ public class Mentor extends BaseEntity  {
     @JoinColumn(name = "programming_language_id")
     private ProgrammingLanguage programmingLanguage;
 
-    private boolean status;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

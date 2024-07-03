@@ -34,7 +34,7 @@ public class MentorServiceImpl implements MentorService {
 
     @Override
     public Mentor create(Mentor mentor) {
-        mentor.setStatus(true);
+        mentor.getUser().setStatus(true);
         return mentorRepository.save(mentor);
     }
 
@@ -42,7 +42,7 @@ public class MentorServiceImpl implements MentorService {
     public void delete(Long id) {
         Mentor mentor=mentorRepository.findById(id)
                 .orElseThrow(()->new MentorNotFoundException());
-        mentor.setStatus(false);
+        mentor.getUser().setStatus(true);
         mentorRepository.save(mentor);
     }
 

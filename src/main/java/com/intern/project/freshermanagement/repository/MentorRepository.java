@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MentorRepository extends JpaRepository<Mentor,Long> {
-    @Query("SELECT m FROM Mentor m WHERE m.status = true")
+    @Query("SELECT m FROM Mentor m WHERE m.user.status = true")
     List<Mentor> findAllActiveMentors();
-    @Query("SELECT m FROM Mentor m WHERE m.status = true AND m.programmingLanguage.languageName = :languageName")
+    @Query("SELECT m FROM Mentor m WHERE m.user.status = true AND m.programmingLanguage.languageName = :languageName")
     List<Mentor> findByProgrammingLanguage(@Param("languageName") String languageName);
 
 }
