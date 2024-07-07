@@ -1,7 +1,8 @@
 package com.intern.project.freshermanagement.data.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Data

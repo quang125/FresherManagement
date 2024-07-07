@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.http.HttpStatus;
 
 @Getter
-
 @Setter
 @Builder
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.constants.RoleConstant;
-import com.intern.project.freshermanagement.common.exception.FresherNotFoundException;
+import com.intern.project.freshermanagement.common.exception.UserNotFoundException;
 import com.intern.project.freshermanagement.common.mapper.FresherMapper;
 import com.intern.project.freshermanagement.data.entity.Fresher;
 import com.intern.project.freshermanagement.data.entity.InternshipGroup;
@@ -28,7 +28,7 @@ public class FresherServiceImpl implements FresherService {
         Fresher fresher = FresherMapper.toEntity(createFresherDTO);
         InternshipGroup internshipGroup = internshipGroupService.findById(createFresherDTO.getInternshipGroupId());
         fresher.getUser().setRole(roleService.findByName(RoleConstant.FRESHER_ROLE));
-        userService.saveUser(fresher.getUser());
+        userService.create(fresher.getUser());
         fresher.setInternshipGroup(internshipGroup);
         fresherRepository.save(fresher);
         mailService.sendActiveUserMail(createFresherDTO.getEmail());
@@ -42,7 +42,7 @@ public class FresherServiceImpl implements FresherService {
 
     @Override
     public void deleteFresher(Long id) {
-        Fresher fresher=fresherRepository.findById(id).orElseThrow(()->new FresherNotFoundException());
+        Fresher fresher=fresherRepository.findById(id).orElseThrow(()->new UserNotFoundException());
         fresher.getUser().setStatus(false);
         fresherRepository.save(fresher);
     }

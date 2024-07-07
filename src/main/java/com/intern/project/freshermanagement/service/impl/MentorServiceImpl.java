@@ -1,7 +1,10 @@
 package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.MentorNotFoundException;
+import com.intern.project.freshermanagement.common.mapper.MentorMapper;
 import com.intern.project.freshermanagement.data.entity.Mentor;
+import com.intern.project.freshermanagement.data.request.CreateMentorDTO;
+import com.intern.project.freshermanagement.data.request.UpdateMentorDTO;
 import com.intern.project.freshermanagement.repository.MentorRepository;
 import com.intern.project.freshermanagement.service.MentorService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +36,8 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
-    public Mentor create(Mentor mentor) {
+    public Mentor create(CreateMentorDTO mentorDTO) {
+        Mentor mentor= MentorMapper.fromDTO(mentorDTO);
         mentor.getUser().setStatus(true);
         return mentorRepository.save(mentor);
     }
@@ -47,7 +51,10 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
-    public Mentor update(Mentor mentor) {
+    public Mentor update(UpdateMentorDTO mentorDTO, Long mentorId) {
+        Mentor mentor=mentorRepository.findById(mentorId)
+                .orElseThrow(()->new MentorNotFoundException());
+
         return mentorRepository.save(mentor);
     }
 }

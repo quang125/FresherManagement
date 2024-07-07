@@ -34,7 +34,7 @@ public class ProgrammingLanguageController {
         return ResponseEntity.ok(new ApiResponse(200, "delete language success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateLanguage(@RequestBody CommandLanguageDTO languageDTO){
-        return ResponseEntity.ok(new ApiResponse(200, "update language success", programmingLanguageService.update(languageDTO)));
+    public ResponseEntity<ApiResponse> updateLanguage(@RequestBody CommandLanguageDTO languageDTO, @RequestParam("id") Long id){
+        return ResponseEntity.ok(new ApiResponse(200, "update language success", programmingLanguageService.update(languageDTO, id)));
     }
 }

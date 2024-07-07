@@ -30,7 +30,7 @@ public class SchoolController {
         return ResponseEntity.ok(new ApiResponse(200, "delete school success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateSchool(@RequestBody CommandSchoolDTO school){
-        return ResponseEntity.ok(new ApiResponse(200, "update school success", schoolService.update(school)));
+    public ResponseEntity<ApiResponse> updateSchool(@RequestBody CommandSchoolDTO school, @RequestParam("id") Long id){
+        return ResponseEntity.ok(new ApiResponse(200, "update school success", schoolService.update(school, id)));
     }
 }

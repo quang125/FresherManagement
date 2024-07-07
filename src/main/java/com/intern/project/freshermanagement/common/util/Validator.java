@@ -1,8 +1,8 @@
 package com.intern.project.freshermanagement.common.util;
 
-import io.micrometer.common.util.StringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Validator {

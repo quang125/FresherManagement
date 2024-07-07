@@ -10,7 +10,7 @@ public interface InternshipProjectService {
     InternshipProject findById(Long id);
     InternshipProject create(CommandProjectDTO internshipProject);
     void delete(Long id);
-    InternshipProject update(CommandProjectDTO internshipProject);
+    InternshipProject update(CommandProjectDTO internshipProject, Long projectId);
     List<InternshipProject> findByName(String name);
     List<InternshipProject> findByLanguageName(String languageName);
 }

@@ -1,6 +1,6 @@
 package com.intern.project.freshermanagement.data.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class Supervisor {

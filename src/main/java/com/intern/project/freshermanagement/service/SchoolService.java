@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SchoolService {
     School create(CommandSchoolDTO school);
-    School update(CommandSchoolDTO school);
+    School update(CommandSchoolDTO school, Long schoolId);
     void deleteSchool(Long id);
     List<School> findById(Long id);
     List<School> findByName(String schoolName);

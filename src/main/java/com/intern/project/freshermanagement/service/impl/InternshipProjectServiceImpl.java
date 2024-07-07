@@ -46,8 +46,9 @@ public class InternshipProjectServiceImpl implements InternshipProjectService {
     }
 
     @Override
-    public InternshipProject update(CommandProjectDTO project) {
-        InternshipProject internshipProject=new InternshipProject();
+    public InternshipProject update(CommandProjectDTO project, Long projectId) {
+        InternshipProject internshipProject=internshipProjectRepository.findById(projectId)
+                .orElseThrow(()->new InternshipProjectNotFoundException());;
         internshipProject.setProjectName(project.getProjectName());
         internshipProject.setProjectDescriptionUrl(project.getProjectDescriptionUrl());
         internshipProject.setProgrammingLanguage(programmingLanguageService.findById(project.getLanguageId()));

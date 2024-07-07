@@ -20,13 +20,20 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School update(CommandSchoolDTO schoolDTO) {
-        return schoolRepository.save(SchoolMapper.fromDTO(schoolDTO));
+    public School update(CommandSchoolDTO schoolDTO, Long schoolId) {
+        School school=schoolRepository.findById(schoolId).orElseThrow(
+                ()-> new SchoolNotFoundException()
+        );
+        School newSchool=SchoolMapper.fromDTO(schoolDTO);
+        newSchool.setId(school.getId());
+        return schoolRepository.save(newSchool);
     }
 
     @Override
     public void deleteSchool(Long id) {
-        School school=schoolRepository.findById(id).orElseThrow(()-> new SchoolNotFoundException());
+        School school=schoolRepository.findById(id).orElseThrow(
+                ()-> new SchoolNotFoundException()
+        );
         school.setActive(false);
         schoolRepository.save(school);
     }

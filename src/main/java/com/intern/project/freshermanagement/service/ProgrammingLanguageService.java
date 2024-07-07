@@ -12,5 +12,5 @@ public interface ProgrammingLanguageService {
     ProgrammingLanguage create(CommandLanguageDTO programmingLanguage);
     List<ProgrammingLanguage> findByName(String languageName);
     void delete(Long id);
-    ProgrammingLanguage update(CommandLanguageDTO programmingLanguage);
+    ProgrammingLanguage update(CommandLanguageDTO programmingLanguage, Long languageId);
 }

@@ -1,10 +1,8 @@
 package com.intern.project.freshermanagement.controller;
 
-import com.intern.project.freshermanagement.data.request.CommandLanguageDTO;
 import com.intern.project.freshermanagement.data.request.CommandProjectDTO;
 import com.intern.project.freshermanagement.data.response.ApiResponse;
 import com.intern.project.freshermanagement.service.InternshipProjectService;
-import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +34,7 @@ public class InternshipProjectController {
         return ResponseEntity.ok(new ApiResponse(200, "delete project success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateProject(@RequestBody CommandProjectDTO commandProjectDTO){
-        return ResponseEntity.ok(new ApiResponse(200, "update project success", internshipProjectService.update(commandProjectDTO)));
+    public ResponseEntity<ApiResponse> updateProject(@RequestBody CommandProjectDTO commandProjectDTO, @RequestParam("id") Long id){
+        return ResponseEntity.ok(new ApiResponse(200, "update project success", internshipProjectService.update(commandProjectDTO, id)));
     }
 }

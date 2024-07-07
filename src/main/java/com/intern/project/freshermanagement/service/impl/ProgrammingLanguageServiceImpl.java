@@ -26,8 +26,9 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
 
     @Override
     public ProgrammingLanguage findById(Long id) {
-        return programmingLanguageRepository.findById(id)
-                .orElseThrow(()->new ProgrammingLanguageNotFoundException());
+        return programmingLanguageRepository.findById(id).orElseThrow(
+                ()-> new ProgrammingLanguageNotFoundException()
+        );
     }
 
     @Override
@@ -54,8 +55,10 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
-    public ProgrammingLanguage update(CommandLanguageDTO programmingLanguage) {
-        ProgrammingLanguage language=new ProgrammingLanguage();
+    public ProgrammingLanguage update(CommandLanguageDTO programmingLanguage, Long languageId) {
+        ProgrammingLanguage language=programmingLanguageRepository.findById(languageId).orElseThrow(
+                ()-> new ProgrammingLanguageNotFoundException()
+        );
         language.setLanguageName(programmingLanguage.getLanguageName());
         language.setLanguageDescription(programmingLanguage.getLanguageDescription());
         return programmingLanguageRepository.save(language);
