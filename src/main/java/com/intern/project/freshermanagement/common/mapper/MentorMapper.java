@@ -14,7 +14,7 @@ public class MentorMapper {
                 .email(createMentorDTO.getEmail())
                 .fullName(createMentorDTO.getFullName())
                 .phoneNumber(createMentorDTO.getPhoneNumber())
-                .status(true)
+                .isActive(true)
                 .build();
         return Mentor.builder()
                 .user(user)

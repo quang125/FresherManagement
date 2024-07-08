@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface MentorRepository extends JpaRepository<Mentor,Long> {
-    @Query("SELECT m FROM Mentor m WHERE m.user.status = true")
+    @Query("SELECT m FROM Mentor m WHERE m.user.isActive = true")
     List<Mentor> findAllActiveMentors();
-    @Query("SELECT m FROM Mentor m WHERE m.user.status = true and m.id= :id" )
+    @Query("SELECT m FROM Mentor m WHERE m.user.isActive = true and m.id= :id" )
     Optional<Mentor> findById(@Param("id") Long id);
-    @Query("SELECT m FROM Mentor m WHERE m.user.status = true AND m.programmingLanguage.languageName = :languageName")
+    @Query("SELECT m FROM Mentor m WHERE m.user.isActive = true AND m.programmingLanguage.languageName = :languageName")
     List<Mentor> findByProgrammingLanguage(@Param("languageName") String languageName);
 
 }

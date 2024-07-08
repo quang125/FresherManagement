@@ -28,10 +28,12 @@ public class User extends BaseEntity{
     private String username;
     private String phoneNumber;
 
-    private boolean status;
+    private boolean isActive;
     private String fullName;
     private String profileImageUrl;
     private LocalDate dateOfBirth;
+    private String googleAuthenticatorSecretKey;
+    private int failedAttempt = 0;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id")

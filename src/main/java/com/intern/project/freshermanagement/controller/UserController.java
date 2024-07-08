@@ -2,6 +2,7 @@ package com.intern.project.freshermanagement.controller;
 
 import com.intern.project.freshermanagement.data.MyUserDetails;
 import com.intern.project.freshermanagement.data.entity.User;
+import com.intern.project.freshermanagement.data.request.ActiveUserRequest;
 import com.intern.project.freshermanagement.data.request.ChangePasswordRequest;
 import com.intern.project.freshermanagement.data.request.UserDTO;
 import com.intern.project.freshermanagement.data.response.ApiResponse;
@@ -53,5 +54,16 @@ public class UserController {
     public ResponseEntity<ApiResponse> deactivate(@PathVariable String id) {
         userService.deactivate(id);
         return ResponseEntity.ok(new ApiResponse(200, "Deactivate user success"));
+    }
+
+    @PostMapping("/user/resend/qr-code")
+    public ResponseEntity<ApiResponse> sendQRCode(@RequestParam("email") String email) {
+        userService.resendQRCode(email);
+        return ResponseEntity.ok(new ApiResponse(200, "Request to reset QR success, please check your email"));
+    }
+
+    @PostMapping("/user/active")
+    public ResponseEntity<ApiResponse> activeUser(@RequestBody ActiveUserRequest activeUserRequest) {
+        return ResponseEntity.ok(new ApiResponse(200, "Confirm active user success", userService.activeUser(activeUserRequest)));
     }
 }

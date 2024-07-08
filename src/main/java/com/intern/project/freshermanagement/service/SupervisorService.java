@@ -1,4 +1,4 @@
 package com.intern.project.freshermanagement.service;
 
-public class SupervisorService {
+public interface SupervisorService {
 }

@@ -19,7 +19,7 @@ public class FresherMapper {
         user.setFullName(createFresherDTO.getFullName());
         user.setPhoneNumber(createFresherDTO.getPhoneNumber());
         user.setDateOfBirth(createFresherDTO.getDateOfBirth());
-        user.setStatus(true);
+        user.setActive(true);
         Fresher fresher=new Fresher();
         fresher.setUser(user);
         fresher.setFresherClass(createFresherDTO.getFresherClass());

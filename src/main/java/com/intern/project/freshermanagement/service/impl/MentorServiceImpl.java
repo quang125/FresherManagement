@@ -38,7 +38,7 @@ public class MentorServiceImpl implements MentorService {
     @Override
     public Mentor create(CreateMentorDTO mentorDTO) {
         Mentor mentor= MentorMapper.fromDTO(mentorDTO);
-        mentor.getUser().setStatus(true);
+        mentor.getUser().setActive(true);
         return mentorRepository.save(mentor);
     }
 
@@ -46,7 +46,7 @@ public class MentorServiceImpl implements MentorService {
     public void delete(Long id) {
         Mentor mentor=mentorRepository.findById(id)
                 .orElseThrow(()->new MentorNotFoundException());
-        mentor.getUser().setStatus(true);
+        mentor.getUser().setActive(true);
         mentorRepository.save(mentor);
     }
 

@@ -1,11 +1,13 @@
 package com.intern.project.freshermanagement.service.impl;
 
-import com.intern.project.freshermanagement.common.exception.BusinessException;
-import com.intern.project.freshermanagement.common.exception.UserNotFoundException;
+import com.intern.project.freshermanagement.common.constants.RoleConstant;
+import com.intern.project.freshermanagement.common.exception.*;
+import com.intern.project.freshermanagement.common.util.GoogleAuthenticatorUtils;
 import com.intern.project.freshermanagement.common.util.Validator;
 import com.intern.project.freshermanagement.data.MyUserDetails;
 import com.intern.project.freshermanagement.data.entity.Role;
 import com.intern.project.freshermanagement.data.entity.User;
+import com.intern.project.freshermanagement.data.request.ActiveUserRequest;
 import com.intern.project.freshermanagement.data.request.ChangePasswordRequest;
 import com.intern.project.freshermanagement.data.request.UserDTO;
 import com.intern.project.freshermanagement.repository.UserRepository;
@@ -33,10 +35,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MailService mailService;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username).orElseThrow(() -> {
-            throw new UserNotFoundException(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> {
+            throw new UserNotFoundException(email);
         });
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return new MyUserDetails(user.getEmail(), user.getPassword(), true, true, true, true, authorities, user);
@@ -117,14 +120,78 @@ public class UserServiceImpl implements UserService {
     public void deactivate(String id) {
 
     }
+
+    @Override
+    public User activeUser(ActiveUserRequest activeUserRequest) {
+        String email = activeUserRequest.getEmail();
+        if (StringUtils.isBlank(email)) {
+            throw new ActiveUserInvalidException();
+        }
+        User user = userRepository.findInactiveUserByEmail(email).orElseThrow(() -> {
+            throw new UserNotFoundException(email);
+        });
+        user.setActive(true);
+        user.setFailedAttempt(0);
+        String googleAuthenticatorCode = activeUserRequest.getGoogleAuthenticatorCode();
+        String currentCode = GoogleAuthenticatorUtils.getTOTPCode(user.getGoogleAuthenticatorSecretKey());
+        if (StringUtils.isEmpty(googleAuthenticatorCode) || !googleAuthenticatorCode.equals(currentCode)) {
+            throw BusinessException.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Google Authenticator code is invalid")
+                    .build();
+        }
+        String password = activeUserRequest.getPassword();
+        if (!password.matches(PASSWORD_PATTERN)) {
+            throw BusinessException.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Password must contains at least one digit, uppercase char and symbol.")
+                    .build();
+        }
+        String name = activeUserRequest.getName();
+        if (StringUtils.isBlank(password) || StringUtils.isBlank(name)) {
+            throw new ActiveUserInvalidException();
+        }
+        user.setFullName(name);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void resendQRCode(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> {
+            throw new UserNotFoundException(email);
+        });
+        if (StringUtils.isNotBlank(user.getGoogleAuthenticatorSecretKey())) {
+            mailService.sendQRCode(email, user.getGoogleAuthenticatorSecretKey());
+        }
+    }
+
     @Override
     public List<User> findAll() {
-        return null;
+        return userRepository.findAll();
     }
 
     @Override
     public User create(User user) {
+        String email = user.getEmail();
+        if (!Validator.isValidEmail(email) || user.getRole() == null) {
+            throw new UserRegisterInvalidException();
+        }
+        User existedUser = userRepository.findByEmail(email).orElse(null);
+        if (existedUser != null) {
+            throw new UserExistedException(email);
+        }
+        user.setGoogleAuthenticatorSecretKey(GoogleAuthenticatorUtils.generateSecretKey());
+        String newPassword=RandomStringUtils.randomAlphabetic(10);
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        mailService.sendActiveUserMail(email, user.getGoogleAuthenticatorSecretKey(), newPassword);
         return userRepository.save(user);
     }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
 
 }

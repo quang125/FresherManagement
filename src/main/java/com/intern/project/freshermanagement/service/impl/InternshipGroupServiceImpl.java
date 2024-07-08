@@ -1,6 +1,7 @@
 package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.InternshipGroupNotFoundException;
+import com.intern.project.freshermanagement.common.log.Logger;
 import com.intern.project.freshermanagement.data.entity.InternshipGroup;
 import com.intern.project.freshermanagement.repository.InternshipGroupRepository;
 import com.intern.project.freshermanagement.service.InternshipGroupService;
@@ -29,6 +30,7 @@ public class InternshipGroupServiceImpl implements InternshipGroupService {
 
     @Override
     public InternshipGroup findById(Long id) {
+        Logger.info(id+" vccc");
         return internshipGroupRepository.findById(id)
                 .orElseThrow(
                         () -> new InternshipGroupNotFoundException()

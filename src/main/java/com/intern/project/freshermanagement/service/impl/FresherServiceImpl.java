@@ -20,7 +20,6 @@ public class FresherServiceImpl implements FresherService {
     private final FresherRepository fresherRepository;
     private final InternshipGroupService internshipGroupService;
     private final RoleService roleService;
-    private final MailService mailService;
     private final UserService userService;
 
     @Override
@@ -31,7 +30,6 @@ public class FresherServiceImpl implements FresherService {
         userService.create(fresher.getUser());
         fresher.setInternshipGroup(internshipGroup);
         fresherRepository.save(fresher);
-        mailService.sendActiveUserMail(createFresherDTO.getEmail());
         return fresher;
     }
 
@@ -43,7 +41,7 @@ public class FresherServiceImpl implements FresherService {
     @Override
     public void deleteFresher(Long id) {
         Fresher fresher=fresherRepository.findById(id).orElseThrow(()->new UserNotFoundException());
-        fresher.getUser().setStatus(false);
+        fresher.getUser().setActive(false);
         fresherRepository.save(fresher);
     }
 

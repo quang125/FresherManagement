@@ -6,11 +6,6 @@ import java.time.LocalDate;
 @Data
 public class CreateFresherDTO {
     private String email;
-    private String password;
-
-    private String username;
-
-    private boolean status;
     private String fullName;
     private LocalDate dateOfBirth;
     private String resumeLink;
