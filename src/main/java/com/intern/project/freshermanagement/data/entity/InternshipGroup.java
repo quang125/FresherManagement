@@ -1,12 +1,19 @@
 package com.intern.project.freshermanagement.data.entity;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class InternshipGroup extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +38,9 @@ public class InternshipGroup extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "supervisor_id")
     private Supervisor supervisor;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "group_chat_id")
+    private GroupChat groupChat;
 
 }

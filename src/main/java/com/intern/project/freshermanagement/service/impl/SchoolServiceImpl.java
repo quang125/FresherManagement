@@ -39,7 +39,7 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public List<School> findById(Long id) {
+    public School findById(Long id) {
         return null;
     }
 
