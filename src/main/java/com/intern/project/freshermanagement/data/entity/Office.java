@@ -1,10 +1,17 @@
 package com.intern.project.freshermanagement.data.entity;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Office extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +19,7 @@ public class Office extends BaseEntity{
     private Long id;
     private String location;
     private String officeName;
-    private String status;
+    private boolean status;
 
 
     @ManyToOne(cascade = CascadeType.ALL)

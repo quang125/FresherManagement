@@ -3,9 +3,11 @@ package com.intern.project.freshermanagement.service.impl;
 import com.intern.project.freshermanagement.common.exception.MentorNotFoundException;
 import com.intern.project.freshermanagement.common.mapper.MentorMapper;
 import com.intern.project.freshermanagement.data.entity.Mentor;
-import com.intern.project.freshermanagement.data.request.CreateMentorDTO;
+import com.intern.project.freshermanagement.data.entity.User;
+import com.intern.project.freshermanagement.data.request.CreateStaffRequest;
 import com.intern.project.freshermanagement.data.request.UpdateMentorDTO;
 import com.intern.project.freshermanagement.repository.MentorRepository;
+import com.intern.project.freshermanagement.repository.UserRepository;
 import com.intern.project.freshermanagement.service.MentorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,11 +38,10 @@ public class MentorServiceImpl implements MentorService {
     }
 
     @Override
-    public Mentor create(CreateMentorDTO mentorDTO) {
-        Mentor mentor= MentorMapper.fromDTO(mentorDTO);
-        mentor.getUser().setActive(true);
-        return mentorRepository.save(mentor);
+    public Mentor create(CreateStaffRequest mentor) {
+        return null;
     }
+
 
     @Override
     public void delete(Long id) {

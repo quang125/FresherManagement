@@ -35,6 +35,11 @@ public class InternshipGroupServiceImpl implements InternshipGroupService {
     }
 
     @Override
+    public List<InternshipGroup> findByOffice(Long officeId) {
+        return internshipGroupRepository.findByOffice(officeId);
+    }
+
+    @Override
     public InternshipGroup findById(Long id) {
         return internshipGroupRepository.findById(id)
                 .orElseThrow(

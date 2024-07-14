@@ -11,4 +11,5 @@ import java.util.List;
 public interface InternshipGroupRepository extends JpaRepository<InternshipGroup,Long> {
     @Query("SELECT m FROM InternshipGroup m WHERE m.status = true")
     List<InternshipGroup> findAllActiveInternshipGroups();
+    List<InternshipGroup> findByOffice(Long officeId);
 }

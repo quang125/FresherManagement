@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateMentorDTO {
+public class CreateStaffRequest {
     private String email;
     private String username;
     private String phoneNumber;
