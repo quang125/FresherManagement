@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class CreateInternshipGroupRequest {
     private String teacherName;
     private String teacherEmail;
-    private long officeId;
     private long supervisorId;
     private long schoolId;
     private String groupChatName;

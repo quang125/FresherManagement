@@ -1,6 +1,6 @@
 package com.intern.project.freshermanagement.controller;
 
-import com.intern.project.freshermanagement.data.request.CommandSchoolDTO;
+import com.intern.project.freshermanagement.data.request.SchoolDTO;
 import com.intern.project.freshermanagement.data.response.ApiResponse;
 import com.intern.project.freshermanagement.service.SchoolService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SchoolController {
     private final SchoolService schoolService;
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> addSchool(@RequestBody CommandSchoolDTO school){
+    public ResponseEntity<ApiResponse> addSchool(@RequestBody SchoolDTO school){
         return ResponseEntity.ok(new ApiResponse(200, "create school success", schoolService.create(school)));
     }
     @GetMapping("/get")
@@ -30,7 +30,7 @@ public class SchoolController {
         return ResponseEntity.ok(new ApiResponse(200, "delete school success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateSchool(@RequestBody CommandSchoolDTO school, @RequestParam("id") Long id){
+    public ResponseEntity<ApiResponse> updateSchool(@RequestBody SchoolDTO school, @RequestParam("id") Long id){
         return ResponseEntity.ok(new ApiResponse(200, "update school success", schoolService.update(school, id)));
     }
 }

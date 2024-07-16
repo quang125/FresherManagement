@@ -36,8 +36,8 @@ public class InternshipGroup extends BaseEntity{
     private School school;
 
     @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    private Supervisor supervisor;
+    @JoinColumn(name = "user_id")
+    private User supervisor;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "group_chat_id")

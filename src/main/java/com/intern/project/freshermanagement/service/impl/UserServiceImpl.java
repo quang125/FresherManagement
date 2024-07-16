@@ -1,6 +1,5 @@
 package com.intern.project.freshermanagement.service.impl;
 
-import com.intern.project.freshermanagement.common.constants.RoleConstant;
 import com.intern.project.freshermanagement.common.exception.*;
 import com.intern.project.freshermanagement.common.util.GoogleAuthenticatorUtils;
 import com.intern.project.freshermanagement.common.util.Validator;
@@ -25,7 +24,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -164,6 +162,11 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isNotBlank(user.getGoogleAuthenticatorSecretKey())) {
             mailService.sendQRCode(email, user.getGoogleAuthenticatorSecretKey());
         }
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     @Override

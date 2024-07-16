@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommandLanguageDTO {
+public class LanguageDTO {
     private String languageName;
     private String languageDescription;
 }

@@ -18,7 +18,7 @@ public class InternshipGroupController {
         return ResponseEntity.ok(new ApiResponse(200,"create success", internshipGroupService.createGroup(file)));
     }
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse>createInternshipGroupManual(@RequestBody CreateInternshipGroupRequest request){
-        return ResponseEntity.ok(new ApiResponse(200,"create success", internshipGroupService.createGroup(request)));
+    public ResponseEntity<ApiResponse>createInternshipGroupManual(@RequestBody CreateInternshipGroupRequest request, @RequestParam("officeId") Long id){
+        return ResponseEntity.ok(new ApiResponse(200,"create success", internshipGroupService.createGroup(request, id)));
     }
 }

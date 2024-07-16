@@ -11,8 +11,9 @@ public interface FresherService {
     Fresher updateFresher(UpdateFresherDTO updateFresherDTO);
     void deleteFresher(Long id);
     List<Fresher> findAll();
-    List<Fresher> findByProgrammingLanguage(String languageName);
-    List<Fresher> findByInternshipProject(String projectName);
+    List<Fresher> findAll(boolean status);
+    List<Fresher> findByProgrammingLanguage(Long languageId);
+    List<Fresher> findByInternshipProject(Long projectId);
     List<Fresher> findByOffice(Long officeId);
     List<Fresher> findByName(String fresherName);
     List<Fresher> findByEmail(String fresherEmail);

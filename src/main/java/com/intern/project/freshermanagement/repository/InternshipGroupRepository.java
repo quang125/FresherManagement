@@ -9,7 +9,11 @@ import java.util.List;
 
 @Repository
 public interface InternshipGroupRepository extends JpaRepository<InternshipGroup,Long> {
-    @Query("SELECT m FROM InternshipGroup m WHERE m.status = true")
-    List<InternshipGroup> findAllActiveInternshipGroups();
-    List<InternshipGroup> findByOffice(Long officeId);
+    List<InternshipGroup> findAllByStatus(boolean status);
+    InternshipGroup findByIdAndStatus(Long id, boolean status);
+    List<InternshipGroup> findByOffice_Id(Long officeId);
+    List<InternshipGroup> findByOffice_IdAndStatus(Long officeId, boolean status);
+    List<InternshipGroup> findBySchool_Id(Long schoolId);
+    List<InternshipGroup> findBySchool_IdAndStatus(Long schoolId, boolean status);
+
 }

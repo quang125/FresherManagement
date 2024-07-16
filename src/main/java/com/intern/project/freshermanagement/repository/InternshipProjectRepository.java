@@ -11,16 +11,14 @@ import java.util.Optional;
 
 @Repository
 public interface InternshipProjectRepository extends JpaRepository<InternshipProject,Long> {
-    @Query("SELECT m FROM InternshipProject m WHERE m.status = true")
-    List<InternshipProject> findAllActiveInternshipProjects();
+    List<InternshipProject> findAllByStatus(boolean status);
 
-    @Query("SELECT m FROM InternshipProject m WHERE m.status = true and m.projectName=: project")
-    List<InternshipProject> findByProjectName(@Param("project") String projectName);
+    @Query("SELECT p FROM InternshipProject p WHERE p.projectName LIKE %:projectName%")
+    List<InternshipProject> findByProjectName(@Param("projectName") String projectName);
 
-    @Query("SELECT m FROM InternshipProject m WHERE m.status = true and m.id=:id")
-    Optional<InternshipProject> findById(@Param("id") Long id);
 
-    @Query("SELECT m FROM InternshipProject m WHERE m.status = true and m.programmingLanguage.languageName=:languageName")
-    List<InternshipProject> findByLanguageName(@Param("languageName") String languageName);
+    Optional<InternshipProject> findByIdAndStatus(Long id, Boolean status);
+
+    List<InternshipProject> findByProgrammingLanguage_Id(Long programmingLanguageId);
 
 }

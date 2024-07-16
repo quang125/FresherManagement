@@ -1,6 +1,6 @@
 package com.intern.project.freshermanagement.controller;
 
-import com.intern.project.freshermanagement.data.request.CommandLanguageDTO;
+import com.intern.project.freshermanagement.data.request.LanguageDTO;
 import com.intern.project.freshermanagement.data.response.ApiResponse;
 import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class ProgrammingLanguageController {
         return ResponseEntity.ok(new ApiResponse(200, "search language success", programmingLanguageService.findByName(name)));
     }
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> addLanguage(@RequestBody CommandLanguageDTO commandLanguageDTO){
+    public ResponseEntity<ApiResponse> addLanguage(@RequestBody LanguageDTO commandLanguageDTO){
         return ResponseEntity.ok(new ApiResponse(200, "create language success", programmingLanguageService.create(commandLanguageDTO)));
     }
     @GetMapping("/get")
@@ -34,7 +34,7 @@ public class ProgrammingLanguageController {
         return ResponseEntity.ok(new ApiResponse(200, "delete language success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateLanguage(@RequestBody CommandLanguageDTO languageDTO, @RequestParam("id") Long id){
+    public ResponseEntity<ApiResponse> updateLanguage(@RequestBody LanguageDTO languageDTO, @RequestParam("id") Long id){
         return ResponseEntity.ok(new ApiResponse(200, "update language success", programmingLanguageService.update(languageDTO, id)));
     }
 }

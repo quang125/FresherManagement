@@ -19,5 +19,5 @@ public class School {
     private String schoolName;
     private String acronym;
     private String location;
-    private boolean isActive;
+    private boolean status;
 }

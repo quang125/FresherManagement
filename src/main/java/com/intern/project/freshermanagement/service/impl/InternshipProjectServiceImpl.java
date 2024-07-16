@@ -2,7 +2,7 @@ package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.InternshipProjectNotFoundException;
 import com.intern.project.freshermanagement.data.entity.InternshipProject;
-import com.intern.project.freshermanagement.data.request.CommandProjectDTO;
+import com.intern.project.freshermanagement.data.request.ProjectDTO;
 import com.intern.project.freshermanagement.repository.InternshipProjectRepository;
 import com.intern.project.freshermanagement.service.InternshipProjectService;
 import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
@@ -18,17 +18,27 @@ public class InternshipProjectServiceImpl implements InternshipProjectService {
     private final ProgrammingLanguageService programmingLanguageService;
     @Override
     public List<InternshipProject> findAll() {
-        return internshipProjectRepository.findAllActiveInternshipProjects();
+        return internshipProjectRepository.findAll();
+    }
+    @Override
+    public List<InternshipProject> findAll(boolean status) {
+        return internshipProjectRepository.findAllByStatus(status);
     }
 
     @Override
     public InternshipProject findById(Long id) {
         return internshipProjectRepository.findById(id)
-                .orElseThrow(()->new InternshipProjectNotFoundException());
+                .orElseThrow(InternshipProjectNotFoundException::new);
     }
 
     @Override
-    public InternshipProject create(CommandProjectDTO project) {
+    public InternshipProject findById(Long id, boolean status) {
+        return internshipProjectRepository.findByIdAndStatus(id, status)
+                .orElseThrow(InternshipProjectNotFoundException::new);
+    }
+
+    @Override
+    public InternshipProject create(ProjectDTO project) {
         InternshipProject internshipProject=new InternshipProject();
         internshipProject.setProjectName(project.getProjectName());
         internshipProject.setProjectDescriptionUrl(project.getProjectDescriptionUrl());
@@ -39,16 +49,16 @@ public class InternshipProjectServiceImpl implements InternshipProjectService {
 
     @Override
     public void delete(Long id) {
-        InternshipProject internshipProject=internshipProjectRepository.findById(id)
-                .orElseThrow(()->new InternshipProjectNotFoundException());
+        InternshipProject internshipProject=internshipProjectRepository.findByIdAndStatus(id, true)
+                .orElseThrow(InternshipProjectNotFoundException::new);
         internshipProject.setStatus(false);
         internshipProjectRepository.save(internshipProject);
     }
 
     @Override
-    public InternshipProject update(CommandProjectDTO project, Long projectId) {
-        InternshipProject internshipProject=internshipProjectRepository.findById(projectId)
-                .orElseThrow(()->new InternshipProjectNotFoundException());;
+    public InternshipProject update(ProjectDTO project, Long projectId) {
+        InternshipProject internshipProject=internshipProjectRepository.findByIdAndStatus(projectId, true)
+                .orElseThrow(InternshipProjectNotFoundException::new);
         internshipProject.setProjectName(project.getProjectName());
         internshipProject.setProjectDescriptionUrl(project.getProjectDescriptionUrl());
         internshipProject.setProgrammingLanguage(programmingLanguageService.findById(project.getLanguageId()));
@@ -61,7 +71,13 @@ public class InternshipProjectServiceImpl implements InternshipProjectService {
     }
 
     @Override
-    public List<InternshipProject> findByLanguageName(String languageName) {
-        return internshipProjectRepository.findByLanguageName(languageName);
+    public List<InternshipProject> findByName(String name, boolean status) {
+        return null;
     }
+
+    @Override
+    public List<InternshipProject> findByLanguage(Long languageId) {
+        return internshipProjectRepository.findByProgrammingLanguage_Id(languageId);
+    }
+
 }

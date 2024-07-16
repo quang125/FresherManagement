@@ -1,13 +1,10 @@
 package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.MentorNotFoundException;
-import com.intern.project.freshermanagement.common.mapper.MentorMapper;
 import com.intern.project.freshermanagement.data.entity.Mentor;
-import com.intern.project.freshermanagement.data.entity.User;
 import com.intern.project.freshermanagement.data.request.CreateStaffRequest;
 import com.intern.project.freshermanagement.data.request.UpdateMentorDTO;
 import com.intern.project.freshermanagement.repository.MentorRepository;
-import com.intern.project.freshermanagement.repository.UserRepository;
 import com.intern.project.freshermanagement.service.MentorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -11,10 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface ProgrammingLanguageRepository extends JpaRepository<ProgrammingLanguage,Long> {
-    @Query("SELECT m FROM ProgrammingLanguage m WHERE m.status = true")
-    List<ProgrammingLanguage> findAllActiveProgramLanguages();
-    @Query("SELECT m FROM ProgrammingLanguage m WHERE m.status = true and m.id=:id")
-    Optional<ProgrammingLanguage> findById(@Param("id") Long id);
-    @Query("SELECT m FROM ProgrammingLanguage m WHERE m.status = true and m.languageName=:language")
-    List<ProgrammingLanguage> findByLanguageName(@Param("language") String languageName);
+    List<ProgrammingLanguage> findAllByStatus(boolean status);
+    Optional<ProgrammingLanguage> findById(Long id);
+    Optional<ProgrammingLanguage> findByIdAndStatus(Long id, boolean status);
+    List<ProgrammingLanguage> findByLanguageName(String languageName);
+    List<ProgrammingLanguage> findByLanguageNameAndStatus(String languageName,boolean status);
 }

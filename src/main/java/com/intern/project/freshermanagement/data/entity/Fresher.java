@@ -29,7 +29,7 @@ public class Fresher extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "mentor_id")
-    private Mentor mentor;
+    private User mentor;
 
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")

@@ -1,6 +1,6 @@
 package com.intern.project.freshermanagement.controller;
 
-import com.intern.project.freshermanagement.data.request.CommandProjectDTO;
+import com.intern.project.freshermanagement.data.request.ProjectDTO;
 import com.intern.project.freshermanagement.data.response.ApiResponse;
 import com.intern.project.freshermanagement.service.InternshipProjectService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class InternshipProjectController {
     private final InternshipProjectService internshipProjectService;
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> addProject(@RequestBody CommandProjectDTO commandProjectDTO){
+    public ResponseEntity<ApiResponse> addProject(@RequestBody ProjectDTO commandProjectDTO){
         return ResponseEntity.ok(new ApiResponse(200, "create project success", internshipProjectService.create(commandProjectDTO)));
     }
     @GetMapping("/get")
@@ -25,8 +25,8 @@ public class InternshipProjectController {
         return ResponseEntity.ok(new ApiResponse(200, "search projects success", internshipProjectService.findByName(name)));
     }
     @GetMapping("/search/language")
-    public ResponseEntity<ApiResponse> findByLanguage(@RequestParam("name") String name){
-        return ResponseEntity.ok(new ApiResponse(200, "search projects success", internshipProjectService.findByLanguageName(name)));
+    public ResponseEntity<ApiResponse> findByLanguage(@RequestParam("languageId") Long id){
+        return ResponseEntity.ok(new ApiResponse(200, "search projects success", internshipProjectService.findByLanguage(id)));
     }
     @DeleteMapping("/delete")
     public ResponseEntity<ApiResponse> deleteById(@RequestParam("id") Long id){
@@ -34,7 +34,7 @@ public class InternshipProjectController {
         return ResponseEntity.ok(new ApiResponse(200, "delete project success"));
     }
     @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateProject(@RequestBody CommandProjectDTO commandProjectDTO, @RequestParam("id") Long id){
+    public ResponseEntity<ApiResponse> updateProject(@RequestBody ProjectDTO commandProjectDTO, @RequestParam("id") Long id){
         return ResponseEntity.ok(new ApiResponse(200, "update project success", internshipProjectService.update(commandProjectDTO, id)));
     }
 }

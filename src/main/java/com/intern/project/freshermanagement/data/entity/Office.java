@@ -23,7 +23,7 @@ public class Office extends BaseEntity{
 
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "office_director_id")
-    private OfficeDirector officeDirector;
+    @JoinColumn(name = "user_id")
+    private User officeDirector;
 
 }

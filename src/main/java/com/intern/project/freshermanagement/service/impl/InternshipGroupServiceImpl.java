@@ -2,11 +2,15 @@ package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.constants.GroupChatType;
 import com.intern.project.freshermanagement.common.exception.InternshipGroupNotFoundException;
-import com.intern.project.freshermanagement.common.log.Logger;
+import com.intern.project.freshermanagement.common.exception.OfficeNotFoundException;
 import com.intern.project.freshermanagement.data.entity.*;
 import com.intern.project.freshermanagement.data.request.CreateInternshipGroupRequest;
 import com.intern.project.freshermanagement.repository.InternshipGroupRepository;
-import com.intern.project.freshermanagement.service.*;
+import com.intern.project.freshermanagement.repository.OfficeRepository;
+import com.intern.project.freshermanagement.service.GroupChatService;
+import com.intern.project.freshermanagement.service.InternshipGroupService;
+import com.intern.project.freshermanagement.service.SchoolService;
+import com.intern.project.freshermanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
@@ -19,8 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InternshipGroupServiceImpl implements InternshipGroupService {
     private final InternshipGroupRepository internshipGroupRepository;
-    private final OfficeService officeService;
-    private final SupervisorService supervisorService;
+    private final OfficeRepository officeRepository;
+    private final UserService userService;
     private final SchoolService schoolService;
     private final GroupChatService groupChatService;
 
@@ -30,21 +34,41 @@ public class InternshipGroupServiceImpl implements InternshipGroupService {
     }
 
     @Override
-    public List<InternshipGroup> findAllActiveGroups() {
-        return internshipGroupRepository.findAllActiveInternshipGroups();
+    public List<InternshipGroup> findAll(boolean status) {
+        return null;
     }
 
     @Override
     public List<InternshipGroup> findByOffice(Long officeId) {
-        return internshipGroupRepository.findByOffice(officeId);
+        return internshipGroupRepository.findByOffice_Id(officeId);
+    }
+
+    @Override
+    public List<InternshipGroup> findByOffice(Long officeId, boolean status) {
+        return internshipGroupRepository.findByOffice_IdAndStatus(officeId, status);
     }
 
     @Override
     public InternshipGroup findById(Long id) {
         return internshipGroupRepository.findById(id)
                 .orElseThrow(
-                        () -> new InternshipGroupNotFoundException()
+                        InternshipGroupNotFoundException::new
                 );
+    }
+
+    @Override
+    public InternshipGroup findById(Long id, boolean status) {
+        return internshipGroupRepository.findByIdAndStatus(id, status);
+    }
+
+    @Override
+    public List<InternshipGroup> findBySchool(Long schoolId) {
+        return internshipGroupRepository.findBySchool_Id(schoolId);
+    }
+
+    @Override
+    public List<InternshipGroup> findBySchool(Long schoolId, boolean status) {
+        return internshipGroupRepository.findBySchool_IdAndStatus(schoolId,status);
     }
 
     @Override
@@ -67,10 +91,10 @@ public class InternshipGroupServiceImpl implements InternshipGroupService {
     }
 
     @Override
-    public InternshipGroup createGroup(CreateInternshipGroupRequest request) {
-        Office office=officeService.findById(request.getOfficeId());
+    public InternshipGroup createGroup(CreateInternshipGroupRequest request, Long officeId) {
+        Office office=officeRepository.findById(officeId).orElseThrow(OfficeNotFoundException::new);
         School school=schoolService.findById(request.getSchoolId());
-        Supervisor supervisor=supervisorService.findById(request.getSupervisorId());
+        User supervisor=userService.findById(request.getSupervisorId());
         GroupChat groupChat=groupChatService.createGroup("VMO_fresher_bot",request.getGroupChatName(), GroupChatType.ACTIVITY);
         InternshipGroup internshipGroup=InternshipGroup.builder()
                 .office(office)

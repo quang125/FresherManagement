@@ -105,7 +105,6 @@
             <version>1.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
@@ -156,6 +155,14 @@
             <artifactId>okhttp</artifactId>
             <version>4.10.0</version>
         </dependency>
+
+        <!-- for swagger -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+        <!-- end swagger -->
 
     </dependencies>
 

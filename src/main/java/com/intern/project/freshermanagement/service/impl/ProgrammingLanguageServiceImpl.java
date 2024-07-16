@@ -2,7 +2,7 @@ package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.ProgrammingLanguageNotFoundException;
 import com.intern.project.freshermanagement.data.entity.ProgrammingLanguage;
-import com.intern.project.freshermanagement.data.request.CommandLanguageDTO;
+import com.intern.project.freshermanagement.data.request.LanguageDTO;
 import com.intern.project.freshermanagement.repository.ProgrammingLanguageRepository;
 import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +20,26 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
-    public List<ProgrammingLanguage> findAllActiveProgrammingLanguages() {
-        return programmingLanguageRepository.findAllActiveProgramLanguages();
+    public List<ProgrammingLanguage> findAll(boolean status) {
+        return programmingLanguageRepository.findAllByStatus(status);
     }
 
     @Override
     public ProgrammingLanguage findById(Long id) {
         return programmingLanguageRepository.findById(id).orElseThrow(
-                ()-> new ProgrammingLanguageNotFoundException()
+                ProgrammingLanguageNotFoundException::new
         );
     }
 
     @Override
-    public ProgrammingLanguage create(CommandLanguageDTO programmingLanguage) {
+    public ProgrammingLanguage findById(Long id, boolean status) {
+        return programmingLanguageRepository.findByIdAndStatus(id,status).orElseThrow(
+                ProgrammingLanguageNotFoundException::new
+        );
+    }
+
+    @Override
+    public ProgrammingLanguage create(LanguageDTO programmingLanguage) {
         ProgrammingLanguage language=new ProgrammingLanguage();
         language.setLanguageName(programmingLanguage.getLanguageName());
         language.setLanguageDescription(programmingLanguage.getLanguageDescription());
@@ -46,18 +53,23 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
+    public List<ProgrammingLanguage> findByName(String languageName, boolean status) {
+        return programmingLanguageRepository.findByLanguageNameAndStatus(languageName, status);
+    }
+
+    @Override
     public void delete(Long id) {
         ProgrammingLanguage programmingLanguage=programmingLanguageRepository.findById(id).orElseThrow(
-                ()-> new ProgrammingLanguageNotFoundException()
+                ProgrammingLanguageNotFoundException::new
         );
         programmingLanguage.setStatus(false);
         programmingLanguageRepository.save(programmingLanguage);
     }
 
     @Override
-    public ProgrammingLanguage update(CommandLanguageDTO programmingLanguage, Long languageId) {
+    public ProgrammingLanguage update(LanguageDTO programmingLanguage, Long languageId) {
         ProgrammingLanguage language=programmingLanguageRepository.findById(languageId).orElseThrow(
-                ()-> new ProgrammingLanguageNotFoundException()
+                ProgrammingLanguageNotFoundException::new
         );
         language.setLanguageName(programmingLanguage.getLanguageName());
         language.setLanguageDescription(programmingLanguage.getLanguageDescription());

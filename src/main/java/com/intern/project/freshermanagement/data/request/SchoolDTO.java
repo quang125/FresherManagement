@@ -1,6 +1,5 @@
 package com.intern.project.freshermanagement.data.request;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommandProjectDTO {
-    private String projectName;
-
-    private Long languageId;
-
-    private String projectDescriptionUrl;
+public class SchoolDTO {
+    private String schoolName;
+    private String acronym;
+    private String location;
 }
