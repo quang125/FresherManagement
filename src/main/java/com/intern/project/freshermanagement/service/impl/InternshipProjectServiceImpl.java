@@ -72,12 +72,17 @@ public class InternshipProjectServiceImpl implements InternshipProjectService {
 
     @Override
     public List<InternshipProject> findByName(String name, boolean status) {
-        return null;
+        return internshipProjectRepository.findByProjectNameAndStatus(name, status);
     }
 
     @Override
     public List<InternshipProject> findByLanguage(Long languageId) {
         return internshipProjectRepository.findByProgrammingLanguage_Id(languageId);
+    }
+
+    @Override
+    public List<InternshipProject> findByLanguage(Long languageId, boolean status) {
+        return internshipProjectRepository.findByStatusAndProgrammingLanguage_Id(languageId,status);
     }
 
 }

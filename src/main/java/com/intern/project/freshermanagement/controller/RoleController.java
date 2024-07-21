@@ -16,7 +16,7 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<ApiResponse> findAll() {
         return ResponseEntity.ok(new ApiResponse(200, "Find all roles success", roleService.findAll()));
     }

@@ -79,13 +79,13 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public Office merge(Long primaryOfficeId, Long secondaryOfficeId, Long newDirectorId) {
-        List<InternshipGroup>internshipGroups=internshipGroupService.findByOffice(secondaryOfficeId);
         Office primaryOffice=officeRepository.findById(primaryOfficeId).orElseThrow(
                 OfficeNotFoundException::new
         );
         Office secondaryOffice=officeRepository.findById(secondaryOfficeId).orElseThrow(
                 OfficeNotFoundException::new
         );
+        List<InternshipGroup>internshipGroups=internshipGroupService.findByOffice(secondaryOfficeId);
         secondaryOffice.setStatus(false);
         for(InternshipGroup internshipGroup:internshipGroups){
             internshipGroup.setOffice(primaryOffice);

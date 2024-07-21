@@ -33,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
-    private final int FAILURE_LIMIT = 15;
+    private static final int FAILURE_LIMIT = 15;
 
     @Override
     public String authenticate(AuthenticationRequest request, HttpServletRequest httpServletRequest) {

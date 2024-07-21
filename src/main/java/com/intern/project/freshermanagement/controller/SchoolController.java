@@ -24,13 +24,13 @@ public class SchoolController {
     public ResponseEntity<ApiResponse> findByName(@RequestParam("name") String name){
         return ResponseEntity.ok(new ApiResponse(200, "search school success", schoolService.findByName(name)));
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<ApiResponse> deleteById(@RequestParam("id") Long id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ApiResponse> deleteById(@PathVariable Long id){
         schoolService.deleteSchool(id);
         return ResponseEntity.ok(new ApiResponse(200, "delete school success"));
     }
-    @PostMapping("/update")
-    public ResponseEntity<ApiResponse> updateSchool(@RequestBody SchoolDTO school, @RequestParam("id") Long id){
+    @PostMapping("/update/{id}")
+    public ResponseEntity<ApiResponse> updateSchool(@RequestBody SchoolDTO school, @PathVariable Long id){
         return ResponseEntity.ok(new ApiResponse(200, "update school success", schoolService.update(school, id)));
     }
 }

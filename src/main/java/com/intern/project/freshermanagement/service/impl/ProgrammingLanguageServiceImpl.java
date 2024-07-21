@@ -6,22 +6,22 @@ import com.intern.project.freshermanagement.data.request.LanguageDTO;
 import com.intern.project.freshermanagement.repository.ProgrammingLanguageRepository;
 import com.intern.project.freshermanagement.service.ProgrammingLanguageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageService {
     private final ProgrammingLanguageRepository programmingLanguageRepository;
     @Override
-    public List<ProgrammingLanguage> findAll() {
-        return programmingLanguageRepository.findAll();
+    public Page<ProgrammingLanguage> findAll(Pageable pageable) {
+        return programmingLanguageRepository.findAll(pageable);
     }
 
     @Override
-    public List<ProgrammingLanguage> findAll(boolean status) {
-        return programmingLanguageRepository.findAllByStatus(status);
+    public Page<ProgrammingLanguage> findAll(boolean status, Pageable pageable) {
+        return programmingLanguageRepository.findAllByStatus(status, pageable);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class ProgrammingLanguageServiceImpl implements ProgrammingLanguageServic
     }
 
     @Override
-    public List<ProgrammingLanguage> findByName(String languageName) {
-        return programmingLanguageRepository.findByLanguageName(languageName);
+    public Page<ProgrammingLanguage> findByName(String languageName, Pageable pageable) {
+        return programmingLanguageRepository.findByLanguageName(languageName, pageable);
     }
 
     @Override
-    public List<ProgrammingLanguage> findByName(String languageName, boolean status) {
-        return programmingLanguageRepository.findByLanguageNameAndStatus(languageName, status);
+    public Page<ProgrammingLanguage> findByName(String languageName, boolean status, Pageable pageable) {
+        return programmingLanguageRepository.findByLanguageNameAndStatus(languageName, status, pageable);
     }
 
     @Override

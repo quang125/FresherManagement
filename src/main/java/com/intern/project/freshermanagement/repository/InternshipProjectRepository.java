@@ -16,9 +16,10 @@ public interface InternshipProjectRepository extends JpaRepository<InternshipPro
     @Query("SELECT p FROM InternshipProject p WHERE p.projectName LIKE %:projectName%")
     List<InternshipProject> findByProjectName(@Param("projectName") String projectName);
 
-
+    @Query("SELECT p FROM InternshipProject p WHERE p.projectName LIKE %:projectName% AND p.status=:status")
+    List<InternshipProject> findByProjectNameAndStatus(@Param("projectName") String projectName, @Param("status") boolean status);
     Optional<InternshipProject> findByIdAndStatus(Long id, Boolean status);
 
     List<InternshipProject> findByProgrammingLanguage_Id(Long programmingLanguageId);
-
+    List<InternshipProject> findByStatusAndProgrammingLanguage_Id(Long programmingLanguageId, boolean status);
 }

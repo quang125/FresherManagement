@@ -1,7 +1,6 @@
 package com.intern.project.freshermanagement.service.impl;
 
 import com.intern.project.freshermanagement.common.exception.SchoolNotFoundException;
-import com.intern.project.freshermanagement.common.mapper.SchoolMapper;
 import com.intern.project.freshermanagement.data.entity.School;
 import com.intern.project.freshermanagement.data.request.SchoolDTO;
 import com.intern.project.freshermanagement.repository.SchoolRepository;
@@ -16,7 +15,12 @@ public class SchoolServiceImpl implements SchoolService {
     private final SchoolRepository schoolRepository;
     @Override
     public School create(SchoolDTO schoolDTO) {
-        return schoolRepository.save(SchoolMapper.fromDTO(schoolDTO));
+        return schoolRepository.save(School.builder()
+                .schoolName(schoolDTO.getSchoolName())
+                .acronym(schoolDTO.getAcronym())
+                .location(schoolDTO.getLocation())
+                .status(true)
+                .build());
     }
 
     @Override
@@ -24,7 +28,12 @@ public class SchoolServiceImpl implements SchoolService {
         School school=schoolRepository.findById(schoolId).orElseThrow(
                 SchoolNotFoundException::new
         );
-        School newSchool=SchoolMapper.fromDTO(schoolDTO);
+        School newSchool=School.builder()
+                .schoolName(schoolDTO.getSchoolName())
+                .acronym(schoolDTO.getAcronym())
+                .location(schoolDTO.getLocation())
+                .status(true)
+                .build();
         newSchool.setId(school.getId());
         return schoolRepository.save(newSchool);
     }

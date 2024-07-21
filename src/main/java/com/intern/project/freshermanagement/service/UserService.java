@@ -12,9 +12,13 @@ public interface UserService extends UserDetailsService {
     User findById(Long id);
 
     List<User> findAll();
+
     User create(User user);
+
     void save(User user);
+
     void resetPassword(String email);
+
     User changePassword(ChangePasswordRequest changePasswordRequest);
 
     User update(UserDTO userDTO);

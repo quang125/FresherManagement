@@ -19,19 +19,16 @@ public class User extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String email;
-
     @JsonIgnore
     private String password;
-
     private String username;
     private String phoneNumber;
-
     private boolean isActive;
     private String fullName;
     private String profileImageUrl;
     private LocalDate dateOfBirth;
+    @JsonIgnore
     private String googleAuthenticatorSecretKey;
     private int failedAttempt = 0;
     @JsonIgnore

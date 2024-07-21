@@ -1,29 +1,23 @@
 package com.intern.project.freshermanagement.service;
 
 import com.intern.project.freshermanagement.data.entity.Fresher;
-import com.intern.project.freshermanagement.data.request.CreateFresherDTO;
-import com.intern.project.freshermanagement.data.request.UpdateFresherDTO;
-
-import java.util.List;
+import com.intern.project.freshermanagement.data.request.CreateFresherRequest;
+import com.intern.project.freshermanagement.data.request.UpdateFresherRequest;
+import com.intern.project.freshermanagement.data.request.UpdateFresherScore;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface FresherService {
-    Fresher createFresher(CreateFresherDTO createFresherDTO);
-    Fresher updateFresher(UpdateFresherDTO updateFresherDTO);
+    Fresher createFresher(CreateFresherRequest createFresherDTO, Long groupId);
+    Fresher updateFresher(UpdateFresherRequest updateFresherDTO, Long id);
     void deleteFresher(Long id);
-    List<Fresher> findAll();
-    List<Fresher> findAll(boolean status);
-    List<Fresher> findByProgrammingLanguage(Long languageId);
-    List<Fresher> findByInternshipProject(Long projectId);
-    List<Fresher> findByOffice(Long officeId);
-    List<Fresher> findByName(String fresherName);
-    List<Fresher> findByEmail(String fresherEmail);
-    List<Fresher> findAll(Long groupId);
-    List<Fresher> findByProgrammingLanguage(String languageName, Long groupId);
-    List<Fresher> findByInternshipProject(String projectName, Long groupId);
+    Page<Fresher> findAll(Pageable pageable);
+    Fresher findById(Long id);
+    byte[] insertFreshersFromFile(MultipartFile multipartFile, Long groupId);
+    Page<Fresher> findByParams(Long groupId, Long languageId, String name, String email, Pageable pageable);
+    Page<Fresher> findByParams(Long groupId, Long languageId, String name, String email, boolean status, Pageable pageable);
 
-    List<Fresher> findByOffice(Long officeId, Long groupId);
+    void updateFresherScore(UpdateFresherScore updateFresherScore, Long id);
 
-    List<Fresher> findByName(String fresherName, Long groupId);
-
-    List<Fresher> findByEmail(String fresherEmail, Long groupId);
 }

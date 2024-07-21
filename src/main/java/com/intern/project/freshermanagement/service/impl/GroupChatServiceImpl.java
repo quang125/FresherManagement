@@ -37,7 +37,7 @@ public class GroupChatServiceImpl implements GroupChatService {
     public GroupChat createGroup(String username, String group, GroupChatType type) {
         username = username.replace("@", "");
         Optional<GroupChat> existedGroup = groupChatRepository.findByName(group);
-        if (!existedGroup.isEmpty()) {
+        if (existedGroup.isPresent()) {
             throw BusinessException.builder()
                     .status(HttpStatus.BAD_REQUEST)
                     .message("Group is existed")

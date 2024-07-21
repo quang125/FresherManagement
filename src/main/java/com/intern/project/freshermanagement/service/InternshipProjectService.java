@@ -16,4 +16,5 @@ public interface InternshipProjectService {
     List<InternshipProject> findByName(String name);
     List<InternshipProject> findByName(String name, boolean status);
     List<InternshipProject> findByLanguage(Long languageId);
+    List<InternshipProject> findByLanguage(Long languageId, boolean status);
 }
