@@ -18,6 +18,7 @@ public class Fresher extends BaseEntity{
     private double score1;
     private double score2;
     private double score3;
+    private double averageScore;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "internship_group_id")

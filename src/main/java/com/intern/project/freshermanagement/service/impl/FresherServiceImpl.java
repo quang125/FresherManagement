@@ -4,11 +4,15 @@ import com.intern.project.freshermanagement.common.constants.RoleConstant;
 import com.intern.project.freshermanagement.common.exception.UserNotFoundException;
 import com.intern.project.freshermanagement.data.entity.Fresher;
 import com.intern.project.freshermanagement.data.entity.InternshipGroup;
+import com.intern.project.freshermanagement.data.entity.Office;
 import com.intern.project.freshermanagement.data.entity.User;
 import com.intern.project.freshermanagement.data.request.CreateFresherRequest;
 import com.intern.project.freshermanagement.data.request.UpdateFresherRequest;
 import com.intern.project.freshermanagement.data.request.UpdateFresherScore;
+import com.intern.project.freshermanagement.data.response.FresherScoreStats;
+import com.intern.project.freshermanagement.data.response.OfficeFresherStats;
 import com.intern.project.freshermanagement.repository.FresherRepository;
+import com.intern.project.freshermanagement.repository.OfficeRepository;
 import com.intern.project.freshermanagement.service.FresherService;
 import com.intern.project.freshermanagement.service.InternshipGroupService;
 import com.intern.project.freshermanagement.service.RoleService;
@@ -39,6 +43,7 @@ public class FresherServiceImpl implements FresherService {
     private final InternshipGroupService internshipGroupService;
     private final RoleService roleService;
     private final UserService userService;
+    private final OfficeRepository officeRepository;
 
     @Override
     public Fresher createFresher(CreateFresherRequest createFresherDTO, Long groupId){
@@ -172,5 +177,20 @@ public class FresherServiceImpl implements FresherService {
         fresher.setResumeLink(createFresherDTO.getResumeLink());
         fresher.setStudentCode(createFresherDTO.getStudentCode());
         return fresher;
+    }
+    @Override
+    public List<OfficeFresherStats> getFresherStatsByOffice() {
+        List<Office>offices=officeRepository.findAllByStatus(true);
+        List<OfficeFresherStats>fresherStats=new ArrayList<>();
+        for(Office office:offices){
+            Long countFresher= fresherRepository.countFresherByOfficeId(office.getId());
+            OfficeFresherStats fresherStat=new OfficeFresherStats(office.getId(), office.getOfficeName(), countFresher);
+            fresherStats.add(fresherStat);
+        }
+        return fresherStats;
+    }
+    @Override
+    public List<FresherScoreStats> getFresherStatsByScore() {
+        return fresherRepository.countByAverageScoreGroup();
     }
 }

@@ -14,10 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/group")
 public class InternshipGroupController {
     private final InternshipGroupService internshipGroupService;
-    @PostMapping("/create/file")
-    public ResponseEntity<ApiResponse>createInternshipGroupWithFile(@RequestParam MultipartFile file){
-        return ResponseEntity.ok(new ApiResponse(200,"create internship project success", internshipGroupService.createGroup(file)));
-    }
     @PostMapping("/create")
     public ResponseEntity<ApiResponse>createInternshipGroupManual(@RequestBody CreateInternshipGroupRequest request, @RequestParam("officeId") Long id){
         return ResponseEntity.ok(new ApiResponse(200,"create internship project success", internshipGroupService.createGroup(request, id)));
